@@ -10,7 +10,6 @@
   "dependencies": {
     "semver": "~2.2.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done"
   },
