@@ -1,0 +1,19 @@
+{
+  "name": "add-deps",
+  "description": "add deps to your package.json",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dominictarr/add-deps",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/add-deps.git"
+  },
+  "dependencies": {
+    "semver": "~2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)",
+  "license": "MIT"
+}
