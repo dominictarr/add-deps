@@ -90,9 +90,10 @@ function updateDeps(dir, modules, opts, cb) {
 
   var pkgFile = path.join(dir, 'package.json')
   var deps
-    = opts['save-dev']  ? 'devDependencies'
-    : opts['save-peer'] ? 'peerDependencies'
-    :                     'dependencies'
+    = opts['save-dev']      ? 'devDependencies'
+    : opts['save-peer']     ? 'peerDependencies'
+    : opts['save-optional'] ? 'optionalDependencies'
+    :                          'dependencies'
 
   readJson(pkgFile, function (err, pkg) {
     if(err) return cb(err)
