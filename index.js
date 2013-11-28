@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 var semver = require('semver')
 var fs = require('fs')
 var path = require('path')
@@ -67,7 +69,25 @@ function merge (a, b) {
   return a
 }
 
+function prepare (modules) {
+  if(Array.isArray(modules)) return modules
+  var a = []
+  if('object' === typeof modules) {
+    if('string' === typeof modules.name)
+      a.push(modules.name)
+    else
+      for(var k in modules)
+        a.push(k)
+    return a
+  }
+  if('string' === typeof modules)
+    return [modules]
+}
+
 function updateDeps(dir, modules, opts, cb) {
+
+  modules = prepare(modules)
+
   var pkgFile = path.join(dir, 'package.json')
   var deps
     = opts['save-dev']  ? 'devDependencies'
@@ -91,7 +111,18 @@ function updateDeps(dir, modules, opts, cb) {
 module.exports = updateDeps
 
 if(!module.parent) {
-  updateDeps(process.cwd(), process.argv.slice(2), {}, function (err) {
-    if(err) throw err
-  })
+  var data = ''
+  if(!process.stdin.isTTY)
+    process.stdin
+      .on('data', function (d) { data += d })
+      .on('end', function () {go(JSON.parse(data))})
+  else
+    go(process.argv.slice(2))
+
+  function go (modules) {
+    updateDeps(process.cwd(), modules, {}, function (err) {
+      if(err) throw err
+      console.log(modules)
+    })
+  }
 }
