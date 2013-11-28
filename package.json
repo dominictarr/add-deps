@@ -1,7 +1,7 @@
 {
   "name": "add-deps",
   "description": "add deps to your package.json",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "homepage": "https://github.com/dominictarr/add-deps",
   "repository": {
     "type": "git",
